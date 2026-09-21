@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Jukebox — Alex Benitez</title>
+  <meta name="description" content="The complete Aenite discography from the first decade of my music life — self-hosted and playable here. Seven albums, all tracks, bonus cuts included.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="grid-layer" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="26" y2="26"><stop stop-color="#5b8cff"/><stop offset=".55" stop-color="#34d399"/><stop offset="1" stop-color="#ff8e3c"/></linearGradient></defs><rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="url(#lg)" stroke-width="2"/><path d="M7 19 L10 8 H14 M12 19 H19" stroke="url(#lg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ladrefino<span style="color:var(--acc)">101</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#engineering">Engineering</a></li>
+      <li><a href="index.html#radio">Radio</a></li>
+      <li><a href="index.html#garage">Garage</a></li>
+      <li><a href="music.html" style="color:var(--text)">Music</a></li>
+      <li><a href="blog/">Blog</a></li>
+    </ul>
+    <a class="callsign-chip" href="index.html#radio">KO6ITO</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<section style="padding-top:130px; padding-bottom:40px;">
+  <div class="wrap">
+    <p class="kicker">// the archives · self-hosted &amp; playable here</p>
+    <h2 class="sec-title" style="font-size:clamp(2.2rem,6vw,3.4rem)">The Jukebox</h2>
+    <p class="lede">Everything I released under the name Aenite between roughly 2012 and now — including bonus tracks that only ever lived on Bandcamp. No redirects, no embeds: the files live right here on this server. If something makes you feel something, there's a little ⬇ next to every track.</p>
+    <!-- EDIT ME: add a line about your current music activity (or inactivity) -->
+
+    <div class="juke-layout" style="margin-top:36px">
+
+      <!-- album rail -->
+      <aside class="album-rail card" id="albumRail" style="padding:12px"></aside>
+
+      <!-- player panel -->
+      <main class="player-panel card">
+        <div class="now-playing">
+          <img class="np-art" id="npArt" src="" alt="Album art">
+          <div>
+            <span class="meta mono" style="color:var(--acc); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase;">Now loading</span>
+            <h3 class="np-title" id="npTitle" style="font-family:var(--font-display)">—</h3>
+            <div class="np-sub" id="npSub">—</div>
+          </div>
+        </div>
+
+        <canvas class="viz-canvas" id="viz" aria-hidden="true"></canvas>
+
+        <div style="display:flex; align-items:center; gap:18px; margin-top:20px; flex-wrap:wrap;">
+          <input type="range" id="seekbar" min="0" max="0" value="0" step="0.5" aria-label="Seek">
+          <div class="time-row" style="flex:none;"><span id="tCur">0:00</span><span id="tTot">0:00</span></div>
+        </div>
+
+        <div class="transport" style="justify-content:center; margin-top:18px;">
+          <button class="tbtn" id="btnPrev" title="Previous track" aria-label="Previous">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h3v14H6zM20 5L9.5 12 20 19z"/></svg>
+          </button>
+          <button class="tbtn main" id="btnPlay" title="Play / pause" aria-label="Play or pause"></button>
+          <button class="tbtn" id="btnNext" title="Next track" aria-label="Next">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15 5h3v14h-3zM4 5l10.5 7L4 19z"/></svg>
+          </button>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:12px; margin-top:18px;">
+          <span class="mono" style="font-size:.68rem; color:var(--muted); letter-spacing:.14em">VOL</span>
+          <input type="range" id="volume" min="0" max="100" value="80" aria-label="Volume" style="max-width:200px;">
+        </div>
+
+        <h3 class="mono" id="listHead" style="font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-top:26px;"></h3>
+        <ul class="tracklist" id="tracklist"></ul>
+
+        <div style="margin-top:18px;">
+          <a class="btn" id="bcSupport" href="#" target="_blank" rel="noopener">Support this album on Bandcamp ↗</a>
+        </div>
+      </main>
+
+    </div>
+  </div>
+</section>
+
+<footer style="margin-top:80px; border-top:1px solid var(--line); padding:40px 0;">
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+    <span class="fine mono" style="font-size:.7rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;">ladrefino101.com · the archives</span>
+    <a href="index.html" style="color:var(--acc)">← back to the main page</a>
+  </div>
+</footer>
+
+<script src="js/music-data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/music-player.js"></script>
+</body>
+</html>

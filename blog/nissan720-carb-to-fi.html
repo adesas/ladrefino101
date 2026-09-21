@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retiring the Carburetor: Fuel Injection for a 1984 Nissan 720 — ladrefino101</title>
+  <meta name="description" content="Why I'm converting my carbureted 1984 Nissan 720 4x4 to electronic fuel injection, and what that conversion actually involves on a 40-year-old truck.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="grid-layer" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../index.html">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="26" y2="26"><stop stop-color="#5b8cff"/><stop offset=".55" stop-color="#34d399"/><stop offset="1" stop-color="#ff8e3c"/></linearGradient></defs><rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="url(#lg)" stroke-width="2"/><path d="M7 19 L10 8 H14 M12 19 H19" stroke="url(#lg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ladrefino<span style="color:var(--acc)">101</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#engineering">Engineering</a></li>
+      <li><a href="../index.html#radio">Radio</a></li>
+      <li><a href="../index.html#garage">Garage</a></li>
+      <li><a href="../music.html">Music</a></li>
+      <li><a href="index.html" style="color:var(--text)">Blog</a></li>
+    </ul>
+    <a class="callsign-chip" href="../index.html#radio">KO6ITO</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+  </div>
+</nav>
+
+<section style="padding-top:130px; padding-bottom:80px;">
+  <div class="wrap">
+    <article class="prose">
+      <span class="post-date">April 12, 2026</span>
+      <h2 style="margin-top:14px;">Retiring the Carburetor: Fuel Injection for a 1984 Nissan 720</h2>
+      <div class="post-tags">
+        <a class="chip" href="index.html#garage">#garage</a>
+      </div>
+
+      <p>The truck in question is my 1984 Nissan 720 — a four-wheel-drive hardtop that's been around the block a few dozen thousand miles. It runs, but it runs like it does: great once warm and at sea level, grumpy when cold, and noticeably worse on every hill. The carburetor has done its job for forty years. Its job is about to end.</p>
+
+      <h3 style="font-size:1.2rem;">Why fuel injection</h3>
+      <ul>
+        <li><b>Cold starts.</b> No choke dance, no flooded morning cranks — just a consistent air/fuel mixture from the first revolution.</li>
+        <li><b>Altitude consistency.</b> Injection meters fuel by mass/flow and compensates where a carb just leans out as you climb.</li>
+        <li><b>Throttle response &amp; drivability.</b> Especially with load on — 4×4 trucks live under load.</li>
+      </ul>
+
+      <!-- EDIT ME: fill in what you actually chose once the parts are picked -->
+      <h3 style="font-size:1.2rem;">What the conversion involves</h3>
+      <p>At a high level, any carb-to-FI conversion on an engine this old is the same four pieces of work:</p>
+      <table class="spec-table">
+        <tr><td>Air side</td><td>Throttle body replacing the carb (and plenum/intake cleanup)</td></tr>
+        <tr><td>Fuel side</td><td>Injectors + fuel rail, regulator, and a pump/rate that matches the engine's flow needs</td></tr>
+        <tr><td>Brain</td><td>An ECU — either an era-correct unit from a Nissan FI engine or a standalone controller — with maps for this engine</td></tr>
+        <tr><td>Sensing &amp; wiring</td><td>Crank/cam position signals, TPS, and a harness that survives a truck's vibration environment</td></tr>
+      </table>
+
+      <h3 style="font-size:1.2rem;">Status</h3>
+      <!-- EDIT ME: update with your actual plan/parts/progress -->
+      <ul>
+        <li>[ ] Decide: OEM-era FI swap vs. standalone ECU + injectors</li>
+        <li>[ ] Source throttle body, injectors, and fuel system components</li>
+        <li>[ ] Wire the sensing side; first idle on injection</li>
+      </ul>
+
+      <p style="margin-top:28px;">This is a slow project — parts for a 40-year-old truck are sourced one auction at a time. Updates as things land in the driveway.</p>
+
+      <div style="margin-top:36px; padding-top:20px; border-top:1px solid var(--line); display:flex; gap:16px; flex-wrap:wrap;">
+        <a class="btn" href="index.html">← All posts</a>
+        <a class="btn" href="../#garage">Garage section →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer style="border-top:1px solid var(--line); padding:40px 0;">
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+    <span class="mono" style="font-size:.7rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;">ladrefino101.com · logbook</span>
+    <a href="../index.html" style="color:var(--acc)">← back to the main page</a>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

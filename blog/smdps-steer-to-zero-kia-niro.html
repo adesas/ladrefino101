@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steering to Zero: Smart MDPS on a 2018 Kia Niro PHEV — ladrefino101</title>
+  <meta name="description" content="Implementing low-speed steer-to-zero on a 2018 Kia Niro PHEV using the car's Smart MDPS system, a standalone Panda, and sunnypilot_smdps firmware.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="grid-layer" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../index.html">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="26" y2="26"><stop stop-color="#5b8cff"/><stop offset=".55" stop-color="#34d399"/><stop offset="1" stop-color="#ff8e3c"/></linearGradient></defs><rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="url(#lg)" stroke-width="2"/><path d="M7 19 L10 8 H14 M12 19 H19" stroke="url(#lg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ladrefino<span style="color:var(--acc)">101</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#engineering">Engineering</a></li>
+      <li><a href="../index.html#radio">Radio</a></li>
+      <li><a href="../index.html#garage">Garage</a></li>
+      <li><a href="../music.html">Music</a></li>
+      <li><a href="index.html" style="color:var(--text)">Blog</a></li>
+    </ul>
+    <a class="callsign-chip" href="../index.html#radio">KO6ITO</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+  </div>
+</nav>
+
+<section style="padding-top:130px; padding-bottom:80px;">
+  <div class="wrap">
+    <article class="prose">
+      <span class="post-date">June 21, 2026</span>
+      <h2 style="margin-top:14px;">Steering to Zero: Smart MDPS on a 2018 Kia Niro PHEV</h2>
+      <div class="post-tags">
+        <a class="chip" href="index.html#engineering">#engineering</a>
+        <a class="chip" href="index.html#garage">#garage</a>
+      </div>
+
+      <p>I run a 2018 Kia Niro PHEV with a Comma 4 on it, running Sunnypilot. The setup works great at highway speeds — but below that, there's no steering assist at all: the car just drives straight and you steer by hand through parking lots and slow streets.</p>
+
+      <h3 style="font-size:1.2rem;">Why comma can't do this (by design)</h3>
+      <p>The Niro's electric power steering is a <b>Smart MDPS</b> unit — the same architecture Hyundai/Kia use across several platforms. The Comma 4 sits on the car's CAN bus and reads EPS traffic, but it is deliberately isolated from writing to it. That isolation exists for safety: an aftermarket computer silently commanding your steering wheel is exactly what the company doesn't want happening. So the stock install has a hard wall at the low end.</p>
+
+      <h3 style="font-size:1.2rem;">The path I'm implementing</h3>
+      <!-- EDIT ME: keep this section updated as the build progresses -->
+      <p>Rather than fight the isolation, the plan is to use the car's own steering system the way it was meant to be commanded — by implementing a low-speed lateral controller that talks directly to the EPS through a dedicated computer:</p>
+      <ul>
+        <li>A <b>standalone Comma Panda</b> running <span class="mono">sunnypilot_smdps</span> firmware, built on earlier work for lower-speed Hyundai/Kia steering (MrXelious and the older community threads are where this started).</li>
+        <li>A custom CAN harness into the EPS bus — Mouser connectors, properly shielded, spliced at a serviceable point.</li>
+        <li>The Comma 4 stays in its lane: perception, highway driving, logging. The Panda handles low-speed steering hand-off.</li>
+      </ul>
+
+      <h3 style="font-size:1.2rem;">Dead ends (so you don't repeat them)</h3>
+      <p>I originally considered tapping the CAN3 port on the Comma Power harness directly. The community consensus — and I agree — is that this is a bad idea for this job; the cleaner route is keeping the EPS work on its own isolated Panda.</p>
+      <p>There's also a tempting shortcut: bypassing the “Smart” part of SMDPS entirely. <a href="https://community.sunnypilot.ai/t/implementing-smart-mdps-steer-to-0-on-2018-kia-niro-phev-with-comma-4-and-standalone-panda/6451" target="_blank" rel="noopener">sunnyhaibin</a> on the community thread makes clear that route is messier than it looks — you end up working around safety logic in the firmware instead of implementing alongside it. Not a place I want my steering to live.</p>
+
+      <h3 style="font-size:1.2rem;">Status &amp; next steps</h3>
+      <!-- EDIT ME: update as you go -->
+      <ul>
+        <li>[ ] Harness routed and CAN traffic captured from the EPS bus</li>
+        <li>[ ] Standalone Panda flashed with <span class="mono">sunnypilot_smdps</span></li>
+        <li>[ ] First closed-loop low-speed steering test (parking lot, driver on the wheel)</li>
+      </ul>
+
+      <p style="margin-top:28px;">The full discussion — including replies from people who've done this on other Kia/Hyundai platforms — is in my <a href="https://community.sunnypilot.ai/t/implementing-smart-mdps-steer-to-0-on-2018-kia-niro-phev-with-comma-4-and-standalone-panda/6451" target="_blank" rel="noopener">thread on the Sunnypilot community forum ↗</a>.</p>
+
+      <div style="margin-top:36px; padding-top:20px; border-top:1px solid var(--line); display:flex; gap:16px; flex-wrap:wrap;">
+        <a class="btn" href="index.html">← All posts</a>
+        <a class="btn" href="../#engineering">Engineering section →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer style="border-top:1px solid var(--line); padding:40px 0;">
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+    <span class="mono" style="font-size:.7rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;">ladrefino101.com · logbook</span>
+    <a href="../index.html" style="color:var(--acc)">← back to the main page</a>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
